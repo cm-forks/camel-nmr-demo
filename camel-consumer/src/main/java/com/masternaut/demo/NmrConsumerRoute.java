@@ -6,12 +6,12 @@ import org.apache.camel.builder.RouteBuilder;
 
 public class NmrConsumerRoute extends RouteBuilder{
 
- @EndpointInject(ref="nmrConsumer")
+ @EndpointInject(uri="nmr:demo1")
  private Endpoint demo1ConsumerUri ;
 
  @Override
  public void configure() throws Exception {
-   from(demo1ConsumerUri).log("${in.body}");
+   from("nmr:demo1").log("${in.body}");
  }
 
 }

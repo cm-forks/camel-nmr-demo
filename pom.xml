@@ -12,15 +12,16 @@
   <modules>
     <module>camel-producer</module>
     <module>camel-consumer</module>
+    <module>camel-test</module>
   </modules>
 
   <properties>
       <camel-version>2.8.0</camel-version>
       <maven-bundle-plugin>2.3.4</maven-bundle-plugin>
       <import-package>*</import-package>
-      <export-package></export-package>
-      <private-package></private-package>
-      <dynamic-package></dynamic-package>
+      <export-package/>
+      <private-package/>
+      <dynamic-package/>
   </properties>
 
 
@@ -37,7 +38,7 @@
             <Private-Package>${private-package}</Private-Package>
             <Import-Package>${import-package}</Import-Package>
             <Export-Package>${export-package}</Export-Package>
-            <DynamicImport-Package></DynamicImport-Package>
+            <DynamicImport-Package/>
           </instructions>
         </configuration>
       </plugin>

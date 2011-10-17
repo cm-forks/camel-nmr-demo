@@ -68,6 +68,7 @@
         <groupId>org.apache.servicemix.camel</groupId>
         <artifactId>org.apache.servicemix.camel.component</artifactId>
         <version>4.3.0</version>
+        <scope>test</scope>
     </dependency>
   </dependencies>
 

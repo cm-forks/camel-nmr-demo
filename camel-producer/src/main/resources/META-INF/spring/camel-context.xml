@@ -27,7 +27,7 @@
 
   <camelContext xmlns="http://camel.apache.org/schema/spring">
     <package>com.masternaut.demo</package>
-    <endpoint id="nmrProducer" uri="nmr:producer"/>
+    <endpoint id="nmrProducer" uri="nmr:demo1"/>
   </camelContext>
 
 </beans>

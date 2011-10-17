@@ -29,6 +29,7 @@
 
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
      <package>com.masternaut.demo</package>
+     <endpoint id="nmrConsumer" uri="nmr:demo1"/>
   </camelContext>
 
 </blueprint>

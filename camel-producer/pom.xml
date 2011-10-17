@@ -52,6 +52,13 @@
       <artifactId>camel-spring</artifactId>
       <version>${camel-version}</version>
     </dependency>
+    <!--
+    <dependency>
+        <groupId>org.apache.servicemix.camel</groupId>
+        <artifactId>org.apache.servicemix.camel.component</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+    -->
     
     <!-- logging -->
     <dependency>

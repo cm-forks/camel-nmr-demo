@@ -30,6 +30,13 @@
         <property name="transacted" value="true"/>
   </bean>
 
+  <bean id="required" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+    <property name="transactionManager">
+         <reference interface="org.springframework.transaction.PlatformTransactionManager"/>
+    </property>
+    <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+  </bean>
+
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
      <package>com.masternaut.demo</package>
      <endpoint id="queueInput" uri="activemq:queue:input"/>

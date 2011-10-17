@@ -1,36 +1,42 @@
 package com.masternaut.demo;
 
-import org.apache.camel.Endpoint;
-import org.apache.camel.EndpointInject;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 
-public class FileJmsTxRoute extends RouteBuilder{
+public class FileJmsTxRoute extends RouteBuilder {
 
-@EndpointInject(ref = "queueInput")
- private Endpoint queueInputUri;
+    @EndpointInject(ref = "queueInput")
+    private Endpoint queueInputUri;
 
- @EndpointInject(ref = "queueOutput")
- private Endpoint queueOutputUri;
+    @EndpointInject(ref = "queueOutput")
+    private Endpoint queueOutputUri;
 
- @EndpointInject(ref = "fileOutput")
- private Endpoint fileUri;
+    @EndpointInject(ref = "fileOutput")
+    private Endpoint fileUri;
 
- @Override
- public void configure() throws Exception {
+    @Override
+    public void configure() throws Exception {
 
-     from("activemq:queue:queueInput").log("Received : ${in.body} ...").process(new Processor() {
+        onException(CamelException.class)
+           .handled(true)
+              .log("ERROR Exception !!!");
 
-     @Override
-     public void process(Exchange exchange) throws Exception {
-       if(((String)exchange.getIn().getBody()).equals("ERROR")) {
-         throw new RuntimeException();
-       }
-     }
-   }).to("file://output").to("activemq:queue:queueOutput");
+        from("activemq:queue:queueInput")
+           .transacted("required")
+           .log("Received : ${in.body} ...")
+           .to("file://output")
+           .process(new Processor() {
+
+               @Override
+               public void process(Exchange exchange) throws Exception {
+                   if (((String) exchange.getIn().getBody()).equals("ERROR")) {
+                       throw new RuntimeException();
+                   }
+               }
+           })
+          .to("activemq:queue:queueOutput");
 
 
- }
+    }
 
 }

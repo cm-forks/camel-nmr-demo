@@ -13,6 +13,7 @@
     <module>camel-producer</module>
     <module>camel-consumer</module>
     <module>camel-test</module>
+    <module>camel-transaction</module>
   </modules>
 
   <properties>

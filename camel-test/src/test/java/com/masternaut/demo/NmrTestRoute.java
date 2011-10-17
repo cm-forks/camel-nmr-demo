@@ -1,7 +1,5 @@
 package com.masternaut.demo;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.servicemix.camel.nmr.AbstractComponentTest;
@@ -59,17 +57,6 @@ public class NmrTestRoute extends AbstractComponentTest {
                      RESPONSE_MESSAGE, response);
     }
 
-    @Test
-    public void testSimpleInvalidEndpoint() throws InterruptedException {
-        Exchange exchange = template.send("direct:error", new Processor() {
-            public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setBody(REQUEST_MESSAGE);
-            }
-        });
-
-        assertTrue("Sending to an invalid NMR endpoint should have failed", exchange.isFailed());
-    }
-
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
@@ -83,8 +70,6 @@ public class NmrTestRoute extends AbstractComponentTest {
                 from("direct:hops").to("nmr:hop1");
                 from("nmr:hop1").to("nmr:hop2");
                 from("nmr:hop2").to("mock:hops").setBody(constant(RESPONSE_MESSAGE));
-
-                from("direct:error").to("nmr:invalid-endpoint-name");
             }
         };
     }

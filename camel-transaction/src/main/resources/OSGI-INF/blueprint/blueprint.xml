@@ -16,18 +16,24 @@
     limitations under the License.
 -->
 
-<!-- Configures the Camel Context-->
-
-<beans xmlns="http://www.springframework.org/schema/beans"
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:camel="http://camel.apache.org/schema/blueprint"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-  <camelContext xmlns="http://camel.apache.org/schema/spring">
-    <package>com.masternaut.demo</package>
-    <endpoint id="nmrProducer" uri="nmr:demo1"/>
+  <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="connectionFactory">
+            <reference interface="javax.jms.ConnectionFactory" filter="(name=localhost)"/>
+        </property>
+  </bean>
+
+  <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+     <package>com.masternaut.demo</package>
+     <endpoint id="queueInput" uri="activemq:queue:input"/>
+     <endpoint id="queueOutput" uri="activemq:queue:output"/>
+     <endpoint id="fileOutput" uri="file://output"/>
   </camelContext>
 
-</beans>
+</blueprint>

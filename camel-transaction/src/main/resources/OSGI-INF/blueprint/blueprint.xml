@@ -27,6 +27,7 @@
         <property name="connectionFactory">
             <reference interface="javax.jms.ConnectionFactory" filter="(name=localhost)"/>
         </property>
+        <property name="transacted" value="true"/>
   </bean>
 
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
